@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coco Coffee — Promo Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --espresso: #0e0705;
+    --dark-roast: #1a0f0a;
+    --medium-roast: #2d1a10;
+    --light-roast: #3d2416;
+    --cream: #f5e6c8;
+    --gold: #c9973a;
+    --gold-light: #e8b85a;
+    --gold-pale: #f5e6c8;
+    --muted: #8a6a52;
+    --text-body: #d4b896;
+    --border: rgba(201,151,58,0.2);
+    --border-focus: rgba(201,151,58,0.6);
+  }
+
+  body {
+    background-color: var(--espresso);
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(45,26,16,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(61,36,22,0.6) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9973a' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='0' cy='0' r='1'/%3E%3Ccircle cx='60' cy='60' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .logo-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    position: relative;
+  }
+
+  .logo-ring::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,151,58,0.3);
+  }
+
+  .logo-icon {
+    font-size: 28px;
+  }
+
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .card {
+    background: var(--dark-roast);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  .field {
+    margin-bottom: 1.4rem;
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  textarea, select, input[type="date"] {
+    width: 100%;
+    background: var(--medium-roast);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0.8rem 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  textarea {
+    resize: none;
+    height: 110px;
+    line-height: 1.6;
+  }
+
+  textarea::placeholder {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  textarea:focus, select:focus, input[type="date"]:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(201,151,58,0.08);
+  }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9973a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  select option {
+    background: var(--medium-roast);
+    color: var(--cream);
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.7) sepia(1) saturate(2) hue-rotate(5deg);
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.6rem 0;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--espresso);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+
+  .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(14,7,5,0.3);
+    border-top-color: var(--espresso);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+
+  .state-loading .spinner { display: block; }
+  .state-loading .btn-text { opacity: 0.7; }
+
+  .success-card {
+    display: none;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .success-card.show { display: block; }
+
+  .check-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-size: 28px;
+    animation: ringPulse 0.6s ease 0.2s both;
+  }
+
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .another-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .another-btn:hover {
+    border-color: var(--border-focus);
+    background: rgba(201,151,58,0.05);
+  }
+
+  .error-msg {
+    display: none;
+    background: rgba(180,50,30,0.15);
+    border: 1px solid rgba(180,50,30,0.3);
+    border-radius: 8px;
+    color: #e07060;
+    font-size: 13px;
+    padding: 0.7rem 1rem;
+    margin-top: 0.8rem;
+    text-align: center;
+  }
+
+  .error-msg.show { display: block; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes ringPulse {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @media (max-width: 480px) {
+    .row { grid-template-columns: 1fr; }
+    h1 { font-size: 1.6rem; }
+    .card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo-ring">
+      <span class="logo-icon">☕</span>
+    </div>
+    <p class="brand">Coco Coffee</p>
+    <h1>Promo Creator</h1>
+    <p class="subtitle">Tell the AI what to promote. It handles the rest.</p>
+  </div>
+
+  <div class="card">
+    <div id="form-view">
+      <div class="field">
+        <label>What do you want to promote?</label>
+        <textarea id="idea" placeholder="e.g. Our new iced lavender latte is here and it's perfect for the summer..."></textarea>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Target Audience</label>
+          <select id="audience">
+            <option value="all">All Customers</option>
+            <option value="vip">VIP Only</option>
+            <option value="inactive">Win-Back Inactive</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tone</label>
+          <select id="tone">
+            <option value="exciting">Exciting</option>
+            <option value="friendly">Friendly</option>
+            <option value="exclusive">Exclusive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Send Date</label>
+        <input type="date" id="send_date" />
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn" id="submit-btn" onclick="submitPromo()">
+        <div class="btn-inner">
+          <div class="spinner"></div>
+          <span class="btn-text">✦ Craft My Promo with AI</span>
+        </div>
+      </button>
+
+      <div class="error-msg" id="error-msg">Something went wrong. Please try again.</div>
+    </div>
+
+    <div class="success-card" id="success-view">
+      <div class="check-ring">✓</div>
+      <h2 class="success-title">Promo is scheduled!</h2>
+      <p class="success-sub">Your campaign has been crafted by AI<br>and saved to the promo queue.</p>
+      <button class="another-btn" onclick="resetForm()">Create Another</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('send_date').value = today;
+  document.getElementById('send_date').min = today;
+
+  async function submitPromo() {
+    const idea = document.getElementById('idea').value.trim();
+    const audience = document.getElementById('audience').value;
+    const tone = document.getElementById('tone').value;
+    const send_date = document.getElementById('send_date').value;
+    const btn = document.getElementById('submit-btn');
+    const errMsg = document.getElementById('error-msg');
+
+    errMsg.classList.remove('show');
+
+    if (!idea) {
+      document.getElementById('idea').focus();
+      return;
+    }
+    if (!send_date) {
+      document.getElementById('send_date').focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.classList.add('state-loading');
+    btn.querySelector('.btn-text').textContent = 'Crafting your promo with AI...';
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idea, audience, tone, send_date })
+      });
+
+      if (!res.ok) throw new Error('Request failed');
+
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('success-view').classList.add('show');
+
+    } catch (err) {
+      errMsg.classList.add('show');
+      btn.disabled = false;
+      btn.classList.remove('state-loading');
+      btn.querySelector('.btn-text').textContent = '✦ Craft My Promo with AI';
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('idea').value = '';
+    document.getElementById('send_date').value = today;
+    document.getElementById('form-view').style.display = 'block';
+    document.getElementById('success-view').classList.remove('show');
+    document.getElementById('error-msg').classList.remove('show');
+  }
+</script>
+</body>
+</html>
