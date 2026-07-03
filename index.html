@@ -389,6 +389,7 @@
 </div>
 
 <script>
+  const ARETE_KEY = "ARETE_DEMO_KEY_123";
   const WEBHOOK_URL = 'https://n8n.srv1276802.hstgr.cloud/webhook/ai-promo-creator';
 
   const today = new Date().toISOString().split('T')[0];
@@ -421,7 +422,7 @@
     try {
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'x-arete-key': ARETE_KEY },
         body: JSON.stringify({ idea, audience, tone, send_date })
       });
 
